@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Recipe Home</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+          integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+            integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+            crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <div class="container-fluid" style="margin-top: 20px">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h1 class="panel-title">My Recipes</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive" th:if="${not #lists.isEmpty(recipies)}">
+                            <table class="table table-hover">
+                                <thead class="thead-inverse">
+                                    <tr>
+                                        <th>Description</th>
+                                        <th>PrepTime</th>
+                                        <th>CookTime</th>
+                                        <th>Servings</th>
+                                        <th>Source</th>
+                                        <th>Url</th>
+                                        <th>Direction</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <tbody>
+                                    <tr>
+                                        <td>Description</td>
+                                        <td>PrepTime</td>
+                                        <td>CookTime</td>
+                                        <td>Servings</td>
+                                        <td>Source</td>
+                                        <td>Url</td>
+                                        <td>Direction</td>
+                                    </tr>
+                                    <tr th:each="recipe: ${recipies}">
+                                        <td th:text="${recipe.description}">Description</td>
+                                        <td th:text="${recipe.prepTime}">Preparation Time</td>
+                                        <td th:text="${recipe.cookTime}">Cook Time</td>
+                                        <td th:text="${recipe.servings}">Servings</td>
+                                        <td th:text="${recipe.source}">Source</td>
+                                        <td th:text="${recipe.url}">Url</td>
+                                        <td th:text="${recipe.direction}">Direction</td>
+                                    </tr>
+                                </tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!--
+    <h1>My Recipes</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>PrepTime</th>
+                <th>CookTime</th>
+                <th>Servings</th>
+                <th>Source</th>
+                <th>Url</th>
+                <th>Direction</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="recipe: ${recipies}">
+                <td th:text="${recipe.description}">Description</td>
+                <td th:text="${recipe.prepTime}">Preparation Time</td>
+                <td th:text="${recipe.cookTime}">Cook Time</td>
+                <td th:text="${recipe.servings}">Servings</td>
+                <td th:text="${recipe.source}">Source</td>
+                <td th:text="${recipe.url}">Url</td>
+                <td th:text="${recipe.direction}">Direction</td>
+            </tr>
+
+
+        </tbody>
+    </table>
+    -->
+</body>
+</html>
