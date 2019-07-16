@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ingredients</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link href="/webjars/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="/webjars/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="/webjars/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h1 class="panel-title">Ingredient</h1>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-2" th:text="${ingredient.id}"/>
+                        <div class="col-md-6" th:text="${ingredient.description}"/>
+                        <div class="col-md-4" th:text="${ingredient.amount} + ' ' + ${ingredient.unitOfMeasure.description}"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

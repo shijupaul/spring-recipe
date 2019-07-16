@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ingredients</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link href="/webjars/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="/webjars/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="/webjars/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h1 class="panel-title">Image Upload</h1>
+                </div>
+                <div class="panel-body">
+
+                    <form th:action="@{'/recipe/' + ${recipe.id} + '/image'}" method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <table class="table-borderless" width="100%">
+                                <tr>
+                                    <th class="col-md-4">Current Image</th>
+                                    <td class="col-md-6">
+                                        <img th:src="'data:image/png;base64,' + ${recipe.image}" height="100" th:width="200"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="col-md-4">Select Image</th>
+                                    <td class="col-md-6">
+                                        <input class="col-md-7" style="float:right" type="file" name="fileToUpload" id="fileToUpload" accept="image/*"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <button type="submit" class="col-lg-offset-8 col-md-2 btn-primary">Submit</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

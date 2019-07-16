@@ -5,13 +5,14 @@
     <title>Recipe Home</title>
 
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-          integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link href="/webjars/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+
 
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
-            integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
-            crossorigin="anonymous"></script>
+    <script src="/webjars/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="/webjars/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 </head>
 <body>
@@ -34,19 +35,13 @@
                                         <th>Source</th>
                                         <th>Url</th>
                                         <th>Direction</th>
+                                        <th>View</th>
+                                        <th>Update</th>
+                                        <th>Delete</th>
+                                        <th>Image Upload</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <tbody>
-                                    <tr>
-                                        <td>Description</td>
-                                        <td>PrepTime</td>
-                                        <td>CookTime</td>
-                                        <td>Servings</td>
-                                        <td>Source</td>
-                                        <td>Url</td>
-                                        <td>Direction</td>
-                                    </tr>
                                     <tr th:each="recipe: ${recipies}">
                                         <td th:text="${recipe.description}">Description</td>
                                         <td th:text="${recipe.prepTime}">Preparation Time</td>
@@ -55,8 +50,11 @@
                                         <td th:text="${recipe.source}">Source</td>
                                         <td th:text="${recipe.url}">Url</td>
                                         <td th:text="${recipe.direction}">Direction</td>
+                                        <td><a th:href="@{'/recipe/' + ${recipe.id} + '/show/' }">View</a></td>
+                                        <td><a th:href="@{'/recipe/' + ${recipe.id} + '/update/' }">Update</a></td>
+                                        <td><a th:href="@{'/recipe/' + ${recipe.id} + '/delete/' }">Delete</a></td>
+                                        <td><a th:href="@{'/recipe/' + ${recipe.id} + '/image/' }">Image</a></td>
                                     </tr>
-                                </tbody>
                                 </tbody>
                             </table>
                         </div>
@@ -66,35 +64,5 @@
         </div>
 
     </div>
-
-    <!--
-    <h1>My Recipes</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Description</th>
-                <th>PrepTime</th>
-                <th>CookTime</th>
-                <th>Servings</th>
-                <th>Source</th>
-                <th>Url</th>
-                <th>Direction</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="recipe: ${recipies}">
-                <td th:text="${recipe.description}">Description</td>
-                <td th:text="${recipe.prepTime}">Preparation Time</td>
-                <td th:text="${recipe.cookTime}">Cook Time</td>
-                <td th:text="${recipe.servings}">Servings</td>
-                <td th:text="${recipe.source}">Source</td>
-                <td th:text="${recipe.url}">Url</td>
-                <td th:text="${recipe.direction}">Direction</td>
-            </tr>
-
-
-        </tbody>
-    </table>
-    -->
 </body>
 </html>

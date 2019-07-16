@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ingredients</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link href="/webjars/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="/webjars/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="/webjars/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h1 class="panel-title">Ingredient</h1>
+                </div>
+                <div class="panel-body">
+
+                    <form th:action="@{'/recipe/' + ${ingredient.recipeId} + '/ingredient'}" th:object="${ingredient}" method="post">
+                        <input type="hidden" th:field="*{id}"/>
+                        <div class="row">
+                            <label class="col-md-3">Description</label>
+                            <input type="text" class="col-md-8" th:field="*{description}"/>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <label class="col-md-2">Amount</label>
+                            <input type="text" class="col-md-2" th:field="*{amount}"/>
+                            <label class="col-md-3">Unit Of Measure</label>
+                            <select class="col-md-4" name="uom.id" th:field="*{unitOfMeasure.id}">
+                                <option th:each="uom: ${unitofmeasurements}"
+                                        th:value="${uom.id}"
+                                        th:selected="${uom.id.equals(ingredient.unitOfMeasure.id)}"
+                                        th:text="${uom.description}"/>
+                            </select>
+                        </div>
+                        <div class="row">
+                            <button type="submit" class="col-lg-offset-9 col-md-2 btn-primary">Submit</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

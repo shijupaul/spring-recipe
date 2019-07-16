@@ -3,7 +3,6 @@ package com.shiju.recipe.services;
 import com.shiju.recipe.domain.Recipe;
 import com.shiju.recipe.repositories.RecipeRepository;
 import org.hamcrest.Matchers;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,6 +13,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Collections;
+import java.util.Optional;
 import java.util.Set;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -33,6 +33,7 @@ public class RecipeServiceImplTest {
 
         Recipe recipe = new Recipe();
         recipe.setSource("street food found somewhere in India......");
+        recipe.setId(1L);
         recipes = Collections.singleton(recipe);
     }
 
@@ -42,10 +43,24 @@ public class RecipeServiceImplTest {
         Set<Recipe> result =  recipeService.getRecipies();
         Assert.assertThat("No of Recipies don't match", result.size(), Matchers.is(1));
         Assert.assertThat("Recipe Source don't match.", result.iterator().next().getSource(), Matchers.is(recipes.iterator().next().getSource()));
-    }
 
-    @After
-    public void tearDown() throws Exception {
         Mockito.verify(recipeRepository, Mockito.times(1)).findAll();
     }
+
+    @Test
+    public void getRecipeById() {
+        Mockito.when(recipeRepository.findById(1L)).thenReturn(Optional.of(recipes.iterator().next()));
+
+        Optional<Recipe> recipeOptional = recipeService.findById(1L);
+        Assert.assertNotNull("Expected recipe", recipeOptional.get());
+
+        Mockito.verify(recipeRepository, Mockito.times(1)).findById(1L);
+    }
+
+    @Test
+    public void deleteRecipe() {
+        recipeService.delete(1L);
+        Mockito.verify(recipeRepository, Mockito.times(1)).deleteById(1L);
+    }
+
 }

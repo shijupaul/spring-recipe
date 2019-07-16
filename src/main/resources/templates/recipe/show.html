@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Showing Individual Recipe</title>
+    <!-- Latest compiled and minified CSS -->
+    <link href="/webjars/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="/webjars/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="/webjars/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+    <div class="container-fluid" style="margin-top: 20px">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h1 class="panel-title">Recipe Id: <span th:text="${recipe.id}"/></h1>
+                    </div>
+                    <div class="panel-body">
+                        <p th:text="${recipe.description}"/>
+
+                        <table class="table-borderless" width="100%">
+
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Preparation Time</th>
+                                    <td th:text="${recipe.prepTime}"/>
+                                    <th scope="row">Cook Time</th>
+                                    <td th:text="${recipe.cookTime}"/>
+                                </tr>
+                                <tr>
+                                    <td style="line-height:20px;" colspan=4>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Difficulty</th>
+                                    <td colspan="3" th:text="${recipe.difficulty}"/>
+
+                                </tr>
+                                <tr>
+                                    <th scope="row">Categories</th>
+                                    <td colspan="3">
+                                    <span th:each="category: ${recipe.categories}">
+                                        <span th:text="${category.name}"/>
+                                    </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h1 class="panel-title">Other Info</h1>
+                    </div>
+                    <div class="panel-body">
+
+                        <table class="table-borderless" width="100%">
+
+                            <tbody>
+                            <tr>
+                                <th scope="row">Source</th>
+                                <td th:text="${recipe.source}"/>
+                            </tr>
+                            <tr>
+                                <td style="line-height: 10px;">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Url</th>
+                                <td th:text="${recipe.url}"/>
+                            </tr>
+                            <tr>
+                                <td style="line-height: 10px;">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Description</th>
+                                <td th:text="${recipe.description}"/>
+                            </tr>
+                            <tr>
+                                <td style="line-height: 10px;">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Notes</th>
+                                <td th:text="${recipe.notes.getRecipeNotes()}"/>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <h1 class="panel-title col-md-8">Ingredients</h1>
+                            <span class="col-md-4">
+                                <a class="btn-primary" style="float:right" th:href="@{'/recipe/' + ${recipe.id} + '/ingredients/'}">View</a>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row" th:each="ingredient : ${recipe.ingredients}">
+                            <div class="col-md-8" th:text="${ingredient.description}"/>
+                            <div class="col-md-4" th:text="${(ingredient.amount + ' ' + ingredient.unitOfMeasure.description)}"/>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+</body>
+</html>

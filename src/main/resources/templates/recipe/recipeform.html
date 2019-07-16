@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create or Update Recipe</title>
+    <!-- Latest compiled and minified CSS -->
+    <link href="/webjars/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="/webjars/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="/webjars/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+    <form th:action="@{/recipe}" th:object="${recipe}" method="post">
+        <input type="text" th:field="*{id}" style="display:none;"/>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h1 class="panel-title">Description</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <textarea class="col-md-12" th:field="*{description}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h1 class="panel-title">Description</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <label class="col-md-3">Preparation time</label>
+                            <input class="col-md-3" th:field="*{prepTime}"/>
+                            <label class="col-md-3">Cook time</label>
+                            <input class="col-md-3" th:field="*{cookTime}"/>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <label class="col-md-3">Servings</label>
+                            <input class="col-md-3" th:field="*{servings}"/>
+                            <label class="col-md-3">Difficulty</label>
+                            <select class="col-md-3" th:field="*{difficulty}">
+                                <option th:each="difficulty: ${T(com.shiju.recipe.domain.Difficulty).values()}"
+                                    th:value="${difficulty.name()}" th:text="${difficulty.name()}"/>
+                            </select>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <label class="col-md-3">Source</label>
+                            <input class="col-md-9" th:field="*{source}"/>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <label class="col-md-3">Url</label>
+                            <input class="col-md-9" th:field="*{url}"/>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <label class="col-md-3">Direction</label>
+                            <input class="col-md-9" th:field="*{direction}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h1 class="panel-title">Notes</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <textarea class="col-md-12" th:field="*{notes.recipeNotes}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <input style="float: right" type="submit" value="Submit" />
+            </div>
+        </div>
+
+    </form>
+</body>
+</html>
