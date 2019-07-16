@@ -59,6 +59,15 @@ public class RecipeController {
         return "recipe/imageuploadform";
     }
 
+    /**
+     * From MultipartHttpServletRequest, A file with matching filename 'fileToUpload' will
+     * be retrieved
+     * @param id
+     * @param fileToUpload
+     * @param model
+     * @return
+     * @throws Exception
+     */
     @PostMapping(value = "/recipe/{id}/image")
     public String uploadImage(@PathVariable Long id, @RequestParam MultipartFile fileToUpload, Model model) throws Exception {
         imageService.storeImage(id, fileToUpload);

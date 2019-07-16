@@ -116,7 +116,7 @@ public class RecipeControllerTest {
     @Test
     public void testUploadImage() throws Exception {
         RecipeDto recipeDto = buildRecipeDto();
-        MockMultipartFile mockMultipartFile = new MockMultipartFile("hello.png", "testing.txt", "text/plain", "this is my image".getBytes());
+        MockMultipartFile mockMultipartFile = new MockMultipartFile("fileToUpload", "testing.txt", "text/plain", "this is my image".getBytes());
 
         Mockito.doNothing().when(imageService).storeImage(1L, mockMultipartFile);
         Mockito.when(recipeService.findCommandById(1L)).thenReturn(Optional.of(recipeDto));
