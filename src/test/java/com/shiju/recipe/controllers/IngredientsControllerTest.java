@@ -5,7 +5,9 @@ import com.shiju.recipe.dto.IngredientDto;
 import com.shiju.recipe.dto.NotesDto;
 import com.shiju.recipe.dto.RecipeDto;
 import com.shiju.recipe.dto.UnitOfMeasureDto;
+import com.shiju.recipe.services.IngredientService;
 import com.shiju.recipe.services.RecipeService;
+import com.shiju.recipe.services.UnitOfMeasureService;
 import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
@@ -33,6 +35,12 @@ public class IngredientsControllerTest {
 
     @MockBean
     private RecipeService recipeService;
+
+    @MockBean
+    private UnitOfMeasureService unitOfMeasureService;
+
+    @MockBean
+    private IngredientService ingredientService;
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();

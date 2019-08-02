@@ -8,6 +8,7 @@ import com.shiju.recipe.dto.NotesDto;
 import com.shiju.recipe.dto.RecipeDto;
 import com.shiju.recipe.services.ImageService;
 import com.shiju.recipe.services.RecipeService;
+import javassist.NotFoundException;
 import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
@@ -23,6 +24,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.Collections;
 import java.util.Optional;
@@ -57,10 +59,18 @@ public class RecipeControllerTest {
 
     @Test
     public void getByIdWhenNoMatchFound() throws Exception {
-        Mockito.when(recipeService.findById(1L)).thenReturn(Optional.empty());
-        expectedException.expect(Matchers.any(Exception.class));
+        Mockito.when(recipeService.findById(10L)).thenReturn(Optional.empty());
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/recipe/1/show"));
+        mockMvc.perform(MockMvcRequestBuilders.get("/recipe/10/show"))
+            .andExpect(MockMvcResultMatchers.view().name("404error"))
+            .andExpect(MockMvcResultMatchers.model().attribute("exception", Matchers.isA(NotFoundException.class)));
+    }
+
+    @Test
+    public void getByIdResultsInNumberFormatException() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/recipe/shiju/show"))
+            .andExpect(MockMvcResultMatchers.view().name("404error"))
+            .andExpect(MockMvcResultMatchers.model().attribute("exception", Matchers.isA(MethodArgumentTypeMismatchException.class)));
     }
 
     @Test
@@ -84,9 +94,9 @@ public class RecipeControllerTest {
     public void retrieveRecipeDtoForUpdateWhenNoMatch() throws Exception {
         Mockito.when(recipeService.findCommandById(1L)).thenReturn(Optional.empty());
 
-        expectedException.expect(Matchers.any(Exception.class));
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/recipe/1/update"));
+        mockMvc.perform(MockMvcRequestBuilders.get("/recipe/1/update"))
+                .andExpect(MockMvcResultMatchers.view().name("404error"))
+                .andExpect(MockMvcResultMatchers.model().attribute("exception", Matchers.isA(NotFoundException.class)));;
     }
 
     @Test
@@ -98,10 +108,16 @@ public class RecipeControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.post("/recipe").
                 contentType(MediaType.APPLICATION_FORM_URLENCODED).
                 param("id", "1").
-                param("description", "my first recipe")
+                param("description", "my first recipe").
+                param("prepTime", "10").
+                param("cookTime", "15").
+                param("servings", "4").
+                param("source", "from grandma").
+                param("url", "http://shijuppaul.co.uk")
         )
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
                 .andExpect(MockMvcResultMatchers.view().name("redirect:/recipe/1/show/"));
+
     }
 
     @Test

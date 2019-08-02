@@ -5,10 +5,15 @@ import com.shiju.recipe.services.ImageService;
 import com.shiju.recipe.services.RecipeService;
 import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
 
 @Slf4j
 @Controller
@@ -21,6 +26,15 @@ public class RecipeController {
     public RecipeController(RecipeService recipeService, ImageService imageService) {
         this.recipeService = recipeService;
         this.imageService = imageService;
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NotFoundException.class)
+    public ModelAndView handleNotFoundException(Exception exception) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("404error");
+        modelAndView.addObject("exception", exception);
+        return modelAndView;
     }
 
     @GetMapping(value = "/recipe/{id}/show")
@@ -42,7 +56,14 @@ public class RecipeController {
     }
 
     @PostMapping(path="/recipe")
-    public String saveOrUpdate(@ModelAttribute RecipeDto recipeDto) {
+    public String saveOrUpdate(@Valid @ModelAttribute("recipe") RecipeDto recipeDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            bindingResult.getAllErrors().forEach(objectError -> {
+                log.error(objectError.toString());
+            });
+            return "recipe/recipeform";
+        }
+
         RecipeDto recipeDtoSaved = recipeService.save(recipeDto);
         return "redirect:/recipe/" + recipeDtoSaved.getId() + "/show/"; // redirect
     }
